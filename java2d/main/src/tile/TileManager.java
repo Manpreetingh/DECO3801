@@ -27,11 +27,11 @@ public class TileManager {
     public void getTileImage(){
         try {
             tile[0] = new Tile();
-            Tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/wall.png")));
+            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/wall.png")));
             tile[1] = new Tile();
-            Tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/floor01.png")));
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/floor01.png")));
             tile[2] = new Tile();
-            Tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/earth.png")));
+            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/earth.png")));
 
 
         } catch (IOException e){
@@ -40,20 +40,18 @@ public class TileManager {
     }
     public void loadMap(){
         try{
-            InputStream is = getClass().getResourceAsStream("/Map.txt");
+            InputStream is = getClass().getResourceAsStream("/map.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             int col = 0;
             int row = 0;
             while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
                 String line = br.readLine();
                 while(col  < gp.maxScreenCol){
                     String numbers[] = line.split(" ");
-
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
-                }
+            }
                 if(col == gp.maxScreenCol){
                     col = 0;
                     row++;
@@ -64,6 +62,7 @@ public class TileManager {
 
 
         }catch(Exception e){
+            e.printStackTrace();
 
         }
 
@@ -76,7 +75,7 @@ public class TileManager {
 
       while(col < gp.maxScreenCol && row< gp.maxScreenRow){
           int tileNum = mapTileNum[col][row];
-          gp.drawImage(tile[tileNum].image, x, gp.tileSize, null);
+          g2.drawImage(tile[tileNum].image, x,y, gp.tileSize,gp.tileSize, null);
           col++;
           x += gp.tileSize;
 
