@@ -1,9 +1,12 @@
 package main;
 
 import entity.Player;
+import tile.Tile;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -13,13 +16,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int tileSize = originalTileszie * scale; //48*48 tile
 
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768
-    final int screemHeight = tileSize * maxScreenRow; // 576
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 11;
+    public final int screenWidth = tileSize * maxScreenCol; // 768
+    public final int screenHeight = tileSize * maxScreenRow; // 576
 
     // FPS
     int FPS = 60;
+
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this,keyH);
@@ -32,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel()
     {
 
-        this.setPreferredSize(new Dimension(screenWidth,screemHeight));
+        this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.BLACK); // background colour
         this.setDoubleBuffered(true); // Double-buffering is the process of drawing graphics into an off-screen image buffer and then copying the contents of the buffer to the screen all at once. For the complex graphics, using double-buffering can reduce flickering issues.
         this.addKeyListener(keyH);
@@ -92,10 +97,15 @@ public class GamePanel extends JPanel implements Runnable {
         // super - parent class of gamePanel ( JPanel)
         Graphics2D g2 = (Graphics2D)g; // we are changing the g to the Graphics 2d class With the Java .
         // Graphics2D class, you have control over high-quality, two-dimensional graphics. This includes lines, shapes, images, fonts, etc.
+        tileM.draw(g2);
         player.draw(g2);
         g2.dispose(); // Good practice to save memory  as it disposes off this graphics context and release any system resources that it is using.
 
 
 
+    }
+
+
+    public void drawImage(BufferedImage image, int x, int tileSize, Object o) {
     }
 }
