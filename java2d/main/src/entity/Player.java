@@ -11,6 +11,9 @@ import java.io.IOException;
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
+
 
 
 
@@ -18,13 +21,15 @@ public class Player extends Entity{
     {
         this.gp = gp;
         this.keyH =keyH;
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - - (gp.tileSize/2);
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues()
     {
-        x = 100;
-        y = 100;
+        worldx = gp.tileSize * 23;
+        worldy = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
@@ -57,21 +62,21 @@ public class Player extends Entity{
                 // X increases to the right
                 // Y increases as they go down
                 direction = "up";
-                y -= speed;
+                worldy -= speed;
 
             }
             if (keyH.downPressed == true) {
                 direction = "down";
-                y += speed;
+                worldy += speed;
             }
 
             if (keyH.leftPressed == true) {
                 direction = "left";
-                x -= speed;
+                worldx -= speed;
             }
             if (keyH.rightPressed == true) {
                 direction = "right";
-                x += speed;
+                worldx += speed;
             }
             spriteCounter++;
             if (spriteCounter > 10) {
@@ -133,7 +138,7 @@ public class Player extends Entity{
                 break;
 
         }
-        g2.drawImage(image,x,y,gp.tileSize,gp.tileSize,null);
+        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
     }
 
 }
