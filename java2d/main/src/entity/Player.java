@@ -23,6 +23,8 @@ public class Player extends Entity{
         this.keyH =keyH;
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - - (gp.tileSize/2);
+        solArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -62,21 +64,35 @@ public class Player extends Entity{
                 // X increases to the right
                 // Y increases as they go down
                 direction = "up";
-                worldy -= speed;
+
 
             }
             if (keyH.downPressed == true) {
                 direction = "down";
-                worldy += speed;
+
             }
 
             if (keyH.leftPressed == true) {
                 direction = "left";
-                worldx -= speed;
+
             }
             if (keyH.rightPressed == true) {
                 direction = "right";
-                worldx += speed;
+              ;
+            }
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            if(collisionOn == false)
+            {
+                switch(direction)
+                {
+                    case "up" : worldy -= speed; break;
+                    case "down":  worldy += speed; break;
+                    case "left":  worldx -= speed; break;
+                    case "right":  worldx += speed; break;
+
+                }
             }
             spriteCounter++;
             if (spriteCounter > 10) {
