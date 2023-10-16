@@ -39,14 +39,14 @@ public class Player extends Entity{
     {
         try {
                 //if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed ==true) {
-                    up1 = ImageIO.read(getClass().getResourceAsStream("/boy_up_1.png"));
-                    up2 = ImageIO.read(getClass().getResourceAsStream("/boy_up_2.png"));
-                    down1 = ImageIO.read(getClass().getResourceAsStream("/boy_down_1.png"));
-                    down2 = ImageIO.read(getClass().getResourceAsStream("/boy_down_2.png"));
-                    left1 = ImageIO.read(getClass().getResourceAsStream("/boy_left_1.png"));
-                    left2 = ImageIO.read(getClass().getResourceAsStream("/boy_left_2.png"));
-                    right1 = ImageIO.read(getClass().getResourceAsStream("/boy_right_1.png"));
-                    right2 = ImageIO.read(getClass().getResourceAsStream("/boy_right_2.png"));
+                    up1 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_up_1.png"));
+                    up2 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_up_2.png"));
+                    down1 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_down_1.png"));
+                    down2 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_down_2.png"));
+                    left1 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_left_1.png"));
+                    left2 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_left_2.png"));
+                    right1 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_right_1.png"));
+                    right2 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_right_2.png"));
                 //}
                 //else {
                 //    no = ImageIO.read(getClass().getResourceAsStream("/pixil-frame-0-2.png"));
