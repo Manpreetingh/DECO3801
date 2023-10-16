@@ -2,12 +2,15 @@ package main;
 
 import entity.Entity;
 
+import java.awt.*;
+
 public class Collision {
     GamePanel gp;
     public Collision(GamePanel gp)
     {
       this.gp =gp;
     }
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
     public void checkTile(Entity entity)
     {
@@ -131,6 +134,115 @@ public class Collision {
             return index;
       }
 
+      public int checkEntity(Entity entity, Entity[] target) {
+          int index = 999;
+          for (int i = 0; i < target.length; i++) {
+              if(target[i] != null) {
+                  //Get entry's solid area position
+                  entity.solArea.x = entity.worldx + entity.solArea.x;
+                  entity.solArea.y = entity.worldy + entity.solArea.y;
+
+                  target[i].solidArea.x = target[i].worldx + target[i].solidArea.x;
+                  target[i].solidArea.y = target[i].worldy + target[i].solidArea.y;
+
+                  switch (entity.direction) {
+                      case "up":
+                          entity.solArea.y -= entity.speed;
+                          if(entity.solArea.intersects(target[i].solidArea)) {
+
+                                  entity.collisionOn = true;
+
+
+                                  index = i;
+
+                          }
+                          break;
+                      case "down":
+                          entity.solArea.y += entity.speed;
+                          if(entity.solArea.intersects(target[i].solidArea)) {
+
+                                  entity.collisionOn = true;
+
+
+                                  index = i;
+
+                          }
+                          break;
+                      case "left":
+                          entity.solArea.x -= entity.speed;
+                          if(entity.solArea.intersects(target[i].solidArea)) {
+
+                                  entity.collisionOn = true;
+
+
+                                  index = i;
+
+                          }
+                          break;
+                      case "right":
+                          entity.solArea.x += entity.speed;
+                          if(entity.solArea.intersects(target[i].solidArea)) {
+                              entity.collisionOn = true;
+                              index = i;
+
+                          }
+                          break;
+                  }
+                  entity.solArea.x = entity.solidAreaDefaultX;
+                  entity.solArea.y = entity.solidAreaDefaultY;
+                  target[i].solidArea.x = target[i].solidAreaDefaultX;
+                  target[i].solidArea.y = target[i].solidAreaDefaultY;
+              }
+          }
+          return index;
+      }
+
+      public void checkPlayer(Entity entity) {
+          entity.solArea.x = entity.worldx + entity.solArea.x;
+          entity.solArea.y = entity.worldy + entity.solArea.y;
+
+          gp.player.solidArea.x = gp.player.worldx + gp.player.solidArea.x;
+          gp.player.solidArea.y = gp.player.worldy + gp.player.solidArea.y;
+
+          switch (entity.direction) {
+              case "up":
+                  entity.solArea.y -= entity.speed;
+                  if(entity.solArea.intersects(gp.player.solidArea)) {
+                      entity.collisionOn = true;
+                  }
+                  break;
+              case "down":
+                  entity.solArea.y += entity.speed;
+                  if(entity.solArea.intersects(gp.player.solidArea)) {
+
+                      entity.collisionOn = true;
+                  }
+                  break;
+              case "left":
+                  entity.solArea.x -= entity.speed;
+                  if(entity.solArea.intersects(gp.player.solidArea)) {
+
+                      entity.collisionOn = true;
+
+
+
+
+                  }
+                  break;
+              case "right":
+                  entity.solArea.x += entity.speed;
+                  if(entity.solArea.intersects(gp.player.solidArea)) {
+                      entity.collisionOn = true;
+
+
+                  }
+                  break;
+          }
+          entity.solArea.x = entity.solidAreaDefaultX;
+          entity.solArea.y = entity.solidAreaDefaultY;
+          gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+          gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+      }
       }
 
 

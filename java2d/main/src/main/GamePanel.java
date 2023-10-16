@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.Tile;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this,keyH);
     public SuperObject obj[] = new SuperObject[40];
 
+    public Entity npc[] = new Entity[10];
     int playerx = 100;
     int playery = 100;
     int playerspeed = 4;
@@ -69,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+        aSetter.setNPC();
         //playMusic(0);
     }
 
@@ -141,6 +144,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void update()
     {
       player.update();
+
+      for(int i = 0; i < npc.length; i++) {
+          if(npc[i] != null) {
+              npc[i].update();
+          }
+      }
     }
 
     public void paintComponent(Graphics g) // to draw something on JPanel other than drawing the background color
@@ -156,7 +165,12 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[i].draw(g2, this); //iterate 0 to 9 object array
             }
         }
-
+        //NPC
+        for (int i = 0; i < npc.length; i++) {
+            if(npc[i] != null) {
+                npc[i].draw(g2);
+            }
+        }
         player.draw(g2);
         ui.draw(g2);
         g2.dispose(); // Good practice to save memory  as it disposes off this graphics context and release any system resources that it is using.

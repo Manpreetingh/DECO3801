@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class Player extends Entity{
-    GamePanel gp;
+
     KeyHandler keyH;
     SuperObject temp[] = new SuperObject[1];
     public final int screenX;
@@ -24,7 +24,8 @@ public class Player extends Entity{
 
     public Player(GamePanel gp, KeyHandler keyH)
     {
-        this.gp = gp;
+        super(gp);
+
         this.keyH =keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -129,6 +130,8 @@ public class Player extends Entity{
 
             pickUpObject(objIndex);
 
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
 
             if(collisionOn == false)
@@ -175,12 +178,19 @@ public class Player extends Entity{
             }
 
         }
-        doorCount ++;
+
+        doorCount++;
         if (doorCount > 60 && doorIndex != -1) {
             doorCount = 0;
             gp.obj[doorIndex] = temp[0];
             doorIndex = -1;
             gp.ui.showMessage("You locked a room with key.");
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i != 999) {
+
         }
     }
 
