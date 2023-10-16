@@ -6,15 +6,15 @@ import main.KeyHandler;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-
-
 
 
     public Player(GamePanel gp, KeyHandler keyH)
@@ -57,16 +57,41 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
-    public void update()
-    {
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed ==true) {
+    public void update() {
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed ==true ||
+                keyH.zoom == true) {
+
+            // Handle the execution of the zoom clone
+            if (keyH.zoom == true) {
+                System.out.println("zoom attempted");
+                System.out.flush();
+                try {
+                    Process process = Runtime.getRuntime().exec("python zoom.py");
+
+                    // Capture the standard output of the process
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+
+                    // Optionally, capture the error output (stderr) of the process
+                    BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                    while ((line = errorReader.readLine()) != null) {
+                        System.err.println(line);
+                    }
+                    process.waitFor();  // wait for the process to complete
+                } catch (IOException e) {} catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             if (keyH.upPressed == true) { // the java upper left corner in origin
                 // X increases to the right
                 // Y increases as they go down
                 direction = "up";
-
-
             }
+
             if (keyH.downPressed == true) {
                 direction = "down";
 
@@ -78,8 +103,8 @@ public class Player extends Entity{
             }
             if (keyH.rightPressed == true) {
                 direction = "right";
-              ;
             }
+
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
@@ -91,7 +116,6 @@ public class Player extends Entity{
                     case "down":  worldy += speed; break;
                     case "left":  worldx -= speed; break;
                     case "right":  worldx += speed; break;
-
                 }
             }
             spriteCounter++;
@@ -103,11 +127,9 @@ public class Player extends Entity{
                 }
                 spriteCounter = 0;
             }
-
-
         }
-
     }
+
     public void draw(Graphics2D g2)
     {
         //  g2.setColor(Color.white);
