@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,13 +10,17 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
+    SuperObject temp[] = new SuperObject[1];
     public final int screenX;
     public final int screenY;
     public int hasKey = 0;
+    int doorCount = 0;
+    int doorIndex = -1;
 
     public Player(GamePanel gp, KeyHandler keyH)
     {
@@ -115,7 +120,17 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
             int objIndex = gp.cChecker.checkObject(this, true);
+
+            if (objIndex != 999 && Objects.equals(gp.obj[objIndex].name, "Door") && this.hasKey > 0) {
+                doorCount = 0;
+                temp[0] = gp.obj[objIndex];
+                doorIndex = objIndex;
+            }
+
             pickUpObject(objIndex);
+
+
+
             if(collisionOn == false)
             {
                 switch(direction)
@@ -147,7 +162,7 @@ public class Player extends Entity{
                     hasKey ++;
                     gp.playSE(1);
                     gp.obj[i] = null;
-                    gp.ui.showMessage("You got a room key.");
+                    gp.ui.showMessage("You got a room key stay in front of door to lock it.");
                     break;
                 case "Door":
                     if (hasKey > 0) {
@@ -156,7 +171,16 @@ public class Player extends Entity{
                         hasKey --;
                     }
                     break;
+
             }
+
+        }
+        doorCount ++;
+        if (doorCount > 60 && doorIndex != -1) {
+            doorCount = 0;
+            gp.obj[doorIndex] = temp[0];
+            doorIndex = -1;
+            gp.ui.showMessage("You locked a room with key.");
         }
     }
 
