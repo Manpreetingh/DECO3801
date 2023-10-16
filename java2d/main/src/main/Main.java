@@ -5,8 +5,12 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        GameWindow window = new GameWindow();
+        JFrame window = new JFrame();
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+        window.pack();
         window.setVisible(true);
-        window.startGame();
+        gamePanel.setupGame();
+        gamePanel.startGameThread();
     }
 }

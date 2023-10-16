@@ -64,6 +64,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.add(roomListScrollPane, BorderLayout.WEST);
     }
 
+    public void setupGame() {
+        aSetter.setObject();
+    }
+
     private void initializeSidebar() {
         roomListModel = new DefaultListModel<>();
         roomList = new JList<>(roomListModel);
@@ -142,6 +146,13 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; // we are changing the g to the Graphics 2d class With the Java .
         // Graphics2D class, you have control over high-quality, two-dimensional graphics. This includes lines, shapes, images, fonts, etc.
         tileM.draw(g2);
+        // Object draw
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this); //iterate 0 to 9 object array
+            }
+        }
+
         player.draw(g2);
         g2.dispose(); // Good practice to save memory  as it disposes off this graphics context and release any system resources that it is using.
     }
