@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     private JList<String> roomList;
     private JScrollPane roomListScrollPane;
 
+    Sound sound = new Sound();
     // FPS
     int FPS = 60;
 
@@ -66,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+        //playMusic(0);
     }
 
     private void initializeSidebar() {
@@ -155,6 +157,21 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.draw(g2);
         g2.dispose(); // Good practice to save memory  as it disposes off this graphics context and release any system resources that it is using.
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSE(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 
     public void drawImage(BufferedImage image, int x, int tileSize, Object o) {
