@@ -14,6 +14,7 @@ public class NPC_OldMan extends Entity{
         speed = 1;
         //can override the solide area
         getImage();
+        setDialogue();
     }
 
     public void getImage()
@@ -65,5 +66,15 @@ public class NPC_OldMan extends Entity{
 
 
 
+    }
+
+    public void setDialogue() {
+        dialogue[0] = "Hello, How can I help you today?";
+        dialogue[1] = "This is the office meeting room, you need to go to reception and get key for each room.";
+        dialogue[2] = "I am your assistant, please don't be hesitate to ask me any questions!";
+        dialogue[3] = "Once you have the key, the door will be lock.";
+    }
+    public void speak() {
+        super.speak();
     }
 }

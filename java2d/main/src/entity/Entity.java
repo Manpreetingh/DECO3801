@@ -18,11 +18,38 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public int actionLockCounter;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    String dialogue[] = new String[20];
+    int dialogueIndex = 0;
+
+
     public Entity(GamePanel gp) {
         this.gp = gp;
+        this.gp.gameState = gp.playState;
     }
 
     public void setAction() {};
+    public void speak() {
+        if(dialogue[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogue[dialogueIndex];
+        dialogueIndex ++;
+
+        switch (gp.player.direction) {
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
+    };
     public void update() {
         setAction();
 
