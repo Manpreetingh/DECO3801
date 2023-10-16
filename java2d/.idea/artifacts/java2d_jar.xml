@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="java2d:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="java2d.jar">
+      <element id="module-output" name="java2d" />
+    </root>
+  </artifact>
+</component>
