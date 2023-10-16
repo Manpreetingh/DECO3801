@@ -12,4 +12,6 @@ public class OBJ_Key extends SuperObject {
             e.printStackTrace();
         }
     }
+
+    //can set specific solid area for each object.
 }

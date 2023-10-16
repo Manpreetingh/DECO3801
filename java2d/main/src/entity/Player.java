@@ -15,23 +15,30 @@ public class Player extends Entity{
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-
+    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH)
     {
         this.gp = gp;
         this.keyH =keyH;
+
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - - (gp.tileSize/2);
-        solArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+        solArea = new Rectangle();
+        solArea.x = 8;
+        solArea.y = 16;
+        solidAreaDefaultX = solArea.x;
+        solidAreaDefaultY = solArea.y;
+        solArea.width = 32;
+        solArea.height = 32;
 
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues()
     {
-        worldx = gp.tileSize * 23;
-        worldy = gp.tileSize * 21;
+        worldx = gp.tileSize * 18;
+        worldy = gp.tileSize * 3;
         speed = 4;
         direction = "down";
     }
@@ -107,7 +114,8 @@ public class Player extends Entity{
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
-
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
             if(collisionOn == false)
             {
                 switch(direction)
@@ -126,6 +134,25 @@ public class Player extends Entity{
                     sprintNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
+
+            switch ((objectName)) {
+                case "Key":
+                    hasKey ++;
+                    gp.obj[i] = null;
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey --;
+                    }
+                    break;
             }
         }
     }

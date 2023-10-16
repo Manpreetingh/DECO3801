@@ -12,5 +12,5 @@ public class Entity {
     public int sprintNum = 1 ;
     public Rectangle solArea;
     public boolean collisionOn = false;
-
+    public int solidAreaDefaultX, solidAreaDefaultY;
 }
