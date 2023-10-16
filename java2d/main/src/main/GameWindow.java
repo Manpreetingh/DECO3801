@@ -19,7 +19,7 @@ public class GameWindow extends JFrame {
         // Initialize and add GamePanel
         gamePanel = new GamePanel();
         add(gamePanel, BorderLayout.CENTER);
-
+        gamePanel.setupGame();
         // Initialize and add sideBar
         sideBar = createSideBar();
         add(sideBar, BorderLayout.LINE_START);
