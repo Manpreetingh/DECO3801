@@ -5,18 +5,18 @@ import main.GamePanel;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class OBJ_Sign extends SuperObject {
+public class OBJ_Computer extends SuperObject {
     public String dialogue[] = new String[20];
-    public OBJ_Sign(GamePanel gp) {
+    public OBJ_Computer(GamePanel gp) {
         this.gp = gp;
-        name = "Sign";
         setDialogue();
-        collision = true;
+        name = "Computer";
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/sign.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/objects/desk_midmid.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        collision = true;
     }
 
     public void speak() {
@@ -28,8 +28,7 @@ public class OBJ_Sign extends SuperObject {
     }
 
     public void setDialogue() {
-        dialogue[0] = "Welcome to reception!";
-        dialogue[1] = "You collected a key!";
+        dialogue[0] = "Log in to computer for meeting.";
     }
 
 }

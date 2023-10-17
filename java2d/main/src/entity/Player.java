@@ -182,6 +182,12 @@ public class Player extends Entity{
                         hasKey --;
                     }
                     break;
+                case "Computer":
+                    if (gp.keyH.enterPressed == true) {
+                        gp.gameState = gp.dialogueState;
+                        gp.obj[i].speak();
+                    }
+                    break;
 
             }
 

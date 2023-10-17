@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_OldMan;
+import object.OBJ_Computer;
 import object.OBJ_Door;
 import object.OBJ_Key;
 import object.OBJ_Sign;
@@ -17,7 +18,21 @@ public class AssetSetter {
         gp.obj[39].worldX = 20 * gp.tileSize;
         gp.obj[39].worldY = 3 * gp.tileSize;
 
+        gp.obj[40] = new OBJ_Computer(gp);
+        gp.obj[40].worldX = 25 * gp.tileSize;
+        gp.obj[40].worldY = 2 * gp.tileSize;
 
+        gp.obj[41] = new OBJ_Computer(gp);
+        gp.obj[41].worldX = 31 * gp.tileSize;
+        gp.obj[41].worldY = 2 * gp.tileSize;
+
+        gp.obj[42] = new OBJ_Computer(gp);
+        gp.obj[42].worldX = 37 * gp.tileSize;
+        gp.obj[42].worldY = 2 * gp.tileSize;
+
+        gp.obj[43] = new OBJ_Computer(gp);
+        gp.obj[43].worldX = 44 * gp.tileSize;
+        gp.obj[43].worldY = 2 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Door();
         gp.obj[1].worldX = 12 * gp.tileSize;

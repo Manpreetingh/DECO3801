@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class SuperObject {
     public int dialogueIndex = 0;
-    public String dialogue[] = new String[20];
+    GamePanel gp;
+
     public BufferedImage image;
     public String name;
     public boolean collision = false;
