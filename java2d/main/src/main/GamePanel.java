@@ -74,8 +74,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        aSetter.setObject();
-        aSetter.setNPC();
+        //aSetter.setObject();
+        //aSetter.setNPC();
         //playMusic(0);
     }
 
@@ -164,17 +164,17 @@ public class GamePanel extends JPanel implements Runnable {
         // Graphics2D class, you have control over high-quality, two-dimensional graphics. This includes lines, shapes, images, fonts, etc.
         tileM.draw(g2);
         // Object draw
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this); //iterate 0 to 9 object array
-            }
-        }
+        //for (int i = 0; i < obj.length; i++) {
+          //  if (obj[i] != null) {
+           //     obj[i].draw(g2, this); //iterate 0 to 9 object array
+           // }
+       // }
         //NPC
-        for (int i = 0; i < npc.length; i++) {
-            if(npc[i] != null) {
-                npc[i].draw(g2);
-            }
-        }
+        //for (int i = 0; i < npc.length; i++) {
+         //   if(npc[i] != null) {
+         //       npc[i].draw(g2);
+         //   }
+        // }
         player.draw(g2);
         ui.draw(g2);
         g2.dispose(); // Good practice to save memory  as it disposes off this graphics context and release any system resources that it is using.

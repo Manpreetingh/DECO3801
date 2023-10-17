@@ -22,9 +22,9 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(arial_40);
-        g2.setColor(Color.white);
-        g2.drawString("Key = " + gp.player.hasKey, 25, 50);
+        //g2.setFont(arial_40);
+        //g2.setColor(Color.white);
+        //g2.drawString("Key = " + gp.player.hasKey, 25, 50);
 
         if(gp.gameState == gp.dialogueState) {
             drawDialogueScreen();

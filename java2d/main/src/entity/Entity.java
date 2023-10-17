@@ -54,9 +54,9 @@ public class Entity {
         setAction();
 
         collisionOn = false;
-        gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+        //gp.cChecker.checkTile(this);
+        //gp.cChecker.checkObject(this, false);
+        //gp.cChecker.checkPlayer(this);
 
         if(collisionOn == false)
         {
