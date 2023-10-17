@@ -188,7 +188,24 @@ public class Player extends Entity{
                         gp.obj[i].speak();
                     }
                     break;
-
+                case "Kitchen":
+                    if (gp.keyH.enterPressed == true) {
+                        gp.gameState = gp.dialogueState;
+                        gp.obj[i].speak();
+                    }
+                    break;
+                case "Sofa":
+                    if (gp.keyH.enterPressed == true) {
+                        gp.gameState = gp.dialogueState;
+                        gp.obj[i].speak();
+                    }
+                    break;
+                case "Pool":
+                    if (gp.keyH.enterPressed == true) {
+                        gp.gameState = gp.dialogueState;
+                        gp.obj[i].speak();
+                    }
+                    break;
             }
 
         }

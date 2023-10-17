@@ -1,10 +1,7 @@
 package main;
 
 import entity.NPC_OldMan;
-import object.OBJ_Computer;
-import object.OBJ_Door;
-import object.OBJ_Key;
-import object.OBJ_Sign;
+import object.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -34,9 +31,21 @@ public class AssetSetter {
         gp.obj[43].worldX = 42 * gp.tileSize;
         gp.obj[43].worldY = 2 * gp.tileSize;
 
-        gp.obj[43] = new OBJ_Computer(gp);
-        gp.obj[43].worldX = 47 * gp.tileSize;
-        gp.obj[43].worldY = 2 * gp.tileSize;
+        gp.obj[44] = new OBJ_Computer(gp);
+        gp.obj[44].worldX = 47 * gp.tileSize;
+        gp.obj[44].worldY = 2 * gp.tileSize;
+
+        gp.obj[45] = new OBJ_Kitchen(gp);
+        gp.obj[45].worldX = 2 * gp.tileSize;
+        gp.obj[45].worldY = 2 * gp.tileSize;
+
+        gp.obj[46] = new OBJ_Sofa(gp);
+        gp.obj[46].worldX = 13 * gp.tileSize;
+        gp.obj[46].worldY = 3 * gp.tileSize;
+
+        gp.obj[47] = new OBJ_Pool(gp);
+        gp.obj[47].worldX = 3 * gp.tileSize;
+        gp.obj[47].worldY = 5 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Door();
         gp.obj[1].worldX = 12 * gp.tileSize;
