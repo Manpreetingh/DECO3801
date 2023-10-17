@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
 public class GamePanel extends JPanel implements Runnable {
 
     //Settings of the screen
-    final int originalTileszie =16; //16*16 tile
+    final int originalTileSize =16; //16*16 tile
     final int scale =3;
-    public final int tileSize = originalTileszie * scale; //48*48 tile
+    public final int tileSize = originalTileSize * scale; //48*48 tile
     public final int maxScreenCol = 40;
     public final int maxScreenRow = 22;
     public final int screenWidth = tileSize * maxScreenCol; // 768
@@ -93,15 +93,6 @@ public class GamePanel extends JPanel implements Runnable {
         roomListScrollPane.setPreferredSize(new Dimension(150, this.getHeight()));
         roomList.setBackground(Color.LIGHT_GRAY);
         roomList.setForeground(Color.BLACK);
-
-        // Add an event listener for room selection
-        roomList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                String selectedRoom = roomList.getSelectedValue();
-                System.out.println("Selected Room: " + selectedRoom);
-                // Handle room selection logic here
-            }
-        });
     }
 
     public void startGameThread() {
@@ -117,36 +108,31 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
         // when the interval hits this time draw the screen again
 
-        while(gameThread != null) // as long as this game thread exist it will repets the process inside brackets
-        {
+        while(gameThread != null) {
+            // as long as this game thread exist it will repets the process inside brackets
             //System.out.println("yo");
             // 1: Update information such as character positions
             update();
             // 2: Draw the screen with the update info
             repaint(); // here we are calling paint component method
 
-            try
-            {
+            try {
                 double remainingTime = nextDrawTime - System.nanoTime();// how much time remaining until the next cycle/loop will start (0.01667s)
                 remainingTime /= 1000000;
-                if(remainingTime < 0)
-                {
+                if(remainingTime < 0) {
                     remainingTime = 0;
                 }
                 Thread.sleep((long)remainingTime);
 
                 nextDrawTime += drawInterval;
-
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public void update()
-    {
+    public void update() {
       player.update();
 
       for(int i = 0; i < npc.length; i++) {

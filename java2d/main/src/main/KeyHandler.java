@@ -24,26 +24,26 @@ public class KeyHandler implements KeyListener {
          if (code == KeyEvent.VK_ENTER) {
              gp.gameState = gp.playState;
          }
-     } else if (gp.gameState == gp.playState){
-         if (code == KeyEvent.VK_ENTER) {
-             enterPressed = true;
-         }
-         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-             upPressed = true;
-         }
-         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-             leftPressed = true;
-         }
-         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-             downPressed = true;
-         }
-         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-             rightPressed = true;
-         }
-         if (code == KeyEvent.VK_Z) {
-             zoom = true;
-         }
-     }
+        } else if (gp.gameState == gp.playState){
+             if (code == KeyEvent.VK_ENTER) {
+                 enterPressed = true;
+             }
+             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                 upPressed = true;
+             }
+             if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                 leftPressed = true;
+             }
+             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                 downPressed = true;
+             }
+             if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                 rightPressed = true;
+             }
+             if (code == KeyEvent.VK_Z) {
+                 zoom = true;
+             }
+        }
     }
 
     @Override

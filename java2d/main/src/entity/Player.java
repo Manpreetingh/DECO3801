@@ -23,8 +23,7 @@ public class Player extends Entity{
     int doorCount = 0;
     int doorIndex = -1;
 
-    public Player(GamePanel gp, KeyHandler keyH)
-    {
+    public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
 
         this.keyH =keyH;
@@ -42,15 +41,13 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
     }
-    public void setDefaultValues()
-    {
+    public void setDefaultValues() {
         worldx = gp.tileSize * 18;
         worldy = gp.tileSize * 5;
         speed = 4;
         direction = "down";
     }
-    public void getPlayerImage()
-    {
+    public void getPlayerImage() {
         try {
                 //if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed ==true) {
                     up1 = ImageIO.read(getClass().getResourceAsStream("/Players/boy_up_1.png"));
@@ -71,51 +68,71 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+
+    /**
+     * executeCommand
+     *  Used to execute a given string command in terminal
+     *  Has considerations for both mac and windows
+     * @param command - the command to be run in terminal
+     * @throws IOException if command is run from an unknown machine
+     */
+    private void executeCommand(String... command) throws IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        // Redirecting errors to standard output for consolidated logging.
+        processBuilder.redirectErrorStream(true);
+        Process process = processBuilder.start();
+
+        // Reading the output in a separate thread to prevent blocking.
+        new Thread(() -> {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     public void update() {
-        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed ==true ||
-                keyH.zoom == true) {
+        Process process;
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.zoom) {
 
             // Handle the execution of the zoom clone
-            if (keyH.zoom == true) {
-                System.out.println("zoom attempted");
-                System.out.flush();
+            if (keyH.zoom) {
                 try {
-                    Process process = Runtime.getRuntime().exec("python zoom.py");
-
-                    // Capture the standard output of the process
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
+                    String OS = System.getProperty("os.name").toLowerCase();
+                    if (OS.contains("win")) {
+                        // If Windows, execute the .exe file and open the default browser.
+                        executeCommand("./zoom-clone-win.exe");
+                        executeCommand("cmd", "/c", "start", "http://localhost:3030");
+                    } else if (OS.contains("mac")) {
+                        // Assuming zoom-clone-macos is a binary. Adjust if it's a .sh or other type.
+                        executeCommand("./zoom-clone-macos");
+                        executeCommand("open", "http://localhost:3030");
+                    } else {
+                        // Log or handle unsupported OS more gracefully
+                        System.err.println("Unsupported OS: " + OS);
                     }
-
-                    // Optionally, capture the error output (stderr) of the process
-                    BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                    while ((line = errorReader.readLine()) != null) {
-                        System.err.println(line);
-                    }
-                    process.waitFor();  // wait for the process to complete
-                } catch (IOException e) {} catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 
-            if (keyH.upPressed == true) { // the java upper left corner in origin
+            if (keyH.upPressed) {
+                // the java upper left corner in origin
                 // X increases to the right
                 // Y increases as they go down
                 direction = "up";
             }
-
-            if (keyH.downPressed == true) {
+            if (keyH.downPressed) {
                 direction = "down";
-
             }
-
-            if (keyH.leftPressed == true) {
+            if (keyH.leftPressed) {
                 direction = "left";
-
             }
-            if (keyH.rightPressed == true) {
+            if (keyH.rightPressed) {
                 direction = "right";
             }
 
@@ -134,11 +151,8 @@ public class Player extends Entity{
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
-
-            if(collisionOn == false)
-            {
-                switch(direction)
-                {
+            if(collisionOn == false) {
+                switch(direction) {
                     case "up" : worldy -= speed; break;
                     case "down":  worldy += speed; break;
                     case "left":  worldx -= speed; break;
@@ -207,7 +221,6 @@ public class Player extends Entity{
                     }
                     break;
             }
-
         }
 
         doorCount++;
@@ -221,7 +234,7 @@ public class Player extends Entity{
 
     public void interactNPC(int i) {
         if(i != 999) {
-            if (gp.keyH.enterPressed == true) {
+            if (gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
@@ -235,45 +248,39 @@ public class Player extends Entity{
         // g2.fillRect(x, y , gp.tileSize , gp.tileSize);
         BufferedImage image = null;
 
-        switch(direction)
-        {
-            case "up":
-                if(sprintNum == 1)
-                {
+        switch (direction) {
+            case "up" -> {
+                if (sprintNum == 1) {
                     image = up1;
                 }
-                if(sprintNum == 2) {
+                if (sprintNum == 2) {
                     image = up2;
                 }
-                break;
-            case "down":
-                if(sprintNum == 1)
-                {
+            }
+            case "down" -> {
+                if (sprintNum == 1) {
                     image = down1;
                 }
-                if(sprintNum == 2) {
+                if (sprintNum == 2) {
                     image = down2;
                 }
-                break;
-            case "left":
-                if(sprintNum == 1)
-                {
+            }
+            case "left" -> {
+                if (sprintNum == 1) {
                     image = left1;
                 }
-                if(sprintNum == 2) {
+                if (sprintNum == 2) {
                     image = left2;
                 }
-                break;
-            case "right":
-                if(sprintNum == 1)
-                {
+            }
+            case "right" -> {
+                if (sprintNum == 1) {
                     image = right1;
                 }
-                if(sprintNum == 2) {
+                if (sprintNum == 2) {
                     image = right2;
                 }
-                break;
-
+            }
         }
         g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
     }
