@@ -3,6 +3,7 @@
 **Instruction**:
 - collect key from reception for the booked space.
 - Ask AI npc for assistant, press enter key to start chat with the AI npc.
+- Press enter key to interact with object.
 
 **Tony's edit**: I will updated the code and resources file in my own edit file. Simply copy and replace my code if there's newer update.
 
