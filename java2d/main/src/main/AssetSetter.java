@@ -31,7 +31,11 @@ public class AssetSetter {
         gp.obj[42].worldY = 2 * gp.tileSize;
 
         gp.obj[43] = new OBJ_Computer(gp);
-        gp.obj[43].worldX = 44 * gp.tileSize;
+        gp.obj[43].worldX = 42 * gp.tileSize;
+        gp.obj[43].worldY = 2 * gp.tileSize;
+
+        gp.obj[43] = new OBJ_Computer(gp);
+        gp.obj[43].worldX = 47 * gp.tileSize;
         gp.obj[43].worldY = 2 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Door();
