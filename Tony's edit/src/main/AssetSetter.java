@@ -3,7 +3,6 @@ package main;
 import entity.NPC_OldMan;
 import object.OBJ_Door;
 import object.OBJ_Key;
-import object.OBJ_Sign;
 
 public class AssetSetter {
     GamePanel gp;
@@ -13,11 +12,9 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gp.obj[39] = new OBJ_Sign(gp);
-        gp.obj[39].worldX = 20 * gp.tileSize;
-        gp.obj[39].worldY = 3 * gp.tileSize;
-
-
+        gp.obj[0] = new OBJ_Key();
+        gp.obj[0].worldX = 20 * gp.tileSize;
+        gp.obj[0].worldY = 3 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Door();
         gp.obj[1].worldX = 12 * gp.tileSize;

@@ -123,7 +123,7 @@ public class Player extends Entity{
             gp.cChecker.checkTile(this);
             int objIndex = gp.cChecker.checkObject(this, true);
 
-            if (objIndex != 999 && Objects.equals(gp.obj[objIndex].name, "Door") && (this.hasKey > 0)) {
+            if (objIndex != 999 && Objects.equals(gp.obj[objIndex].name, "Door") && (this.hasKey > 0 || this.inRoom == 1)) {
                 doorCount = 0;
                 temp[0] = gp.obj[objIndex];
                 doorIndex = objIndex;
@@ -162,24 +162,22 @@ public class Player extends Entity{
             String objectName = gp.obj[i].name;
 
             switch ((objectName)) {
-                case "Sign":
-
-                    if (gp.keyH.enterPressed == true) {
-                        gp.gameState = gp.dialogueState;
-                        gp.obj[i].speak();
-                        if (gp.obj[i].dialogueIndex == 2) {
-                            hasKey+=2;
-                            gp.playSE(1);
-                            gp.ui.showMessage("You got a room key, noted room will locked in one second.");
-                        }
-                    }
-
+                case "Key":
+                    hasKey ++;
+                    gp.playSE(1);
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("You got a room key, noted room will locked in one second.");
                     break;
                 case "Door":
                     if (hasKey > 0) {
+                        inRoom = 1;
                         gp.playSE(3);
                         gp.obj[i] = null;
                         hasKey --;
+                    } else if (inRoom == 1) {
+                        gp.playSE(3);
+                        gp.obj[i] = null;
+                        inRoom = 0;
                     }
                     break;
 
